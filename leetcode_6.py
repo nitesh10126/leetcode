@@ -1,4 +1,5 @@
 class Solution:
+    # pattern based solution (not intuitive)
     def convert(self, s: str, numRows: int) -> str:
         converted_str = ""
         str_len = len(s)
@@ -20,6 +21,33 @@ class Solution:
 
         return converted_str
 
+    # intuitive soluion. It does exactly what you do to solve problem by hand.
+    def convert(self, s:str, numRows: int) -> str:
+        if numRows == 1:
+            return s
+
+        row_str = ["" for _ in range(numRows)]
+        row = 0
+        down = 1
+        for letter in s:
+            row_str[row] = row_str[row] + letter
+
+            if row == 0:
+                down = 1
+            if row == numRows-1:
+                down = 0
+
+            if down == 1:
+                row += 1
+            else:
+                row -= 1
+
+        converted_str = ""
+        for sub_string in row_str:
+            converted_str += sub_string
+
+        return converted_str
+
 
 """
 Key Learnings:
@@ -27,4 +55,7 @@ Key Learnings:
         values of N.
     2. write edge-cases return statement for which solution is trivial (line no. 6-7)
     3. Be very critical when using while loop, make sure that it is going into inf loop.
+
+    #solution2
+    Observe closely how you solve problem by hand, it might help develop faster/better soution.
 """
